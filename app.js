@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import BasicExample from './src/Basic';
 
 class APP extends Component{
     render(){
         return(
-            <div>Hello React!</div>
+            <BasicExample/>
         )
     }
 }
