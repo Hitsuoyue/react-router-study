@@ -4,7 +4,7 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 module.exports = {
     entry: './app.js',//
     output: {
-        filename: "build/build.js"
+        filename: "bundle.js"
     },
     devServer: {
         inline: true,
