@@ -18,11 +18,16 @@ module.exports = {
     ],
     module: {
         rules: [{
-            test: /\.js$/,
+            test: /\.(js|jsx)$/,
             exclude: /node_modules/,
             loader: 'babel-loader',
             query: {
-                plugins: ['transform-runtime'],
+                plugins: [['transform-runtime'],
+                    ["import", {
+                        "libraryName": "antd",
+                        "style": "css"
+                    }]
+                ],
                 presets: ['es2015', 'react', 'stage-2']
             }
         }, {
