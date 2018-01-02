@@ -1,51 +1,56 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import {default as HeadBar} from '../Components/Header/Header';
 import SideBar from '../Components/SideBar/SideBar';
-import { Layout } from 'antd';
-const { Header, Footer, Sider, Content } = Layout;
-import { connect } from 'react-redux';
-import {
-    inputChange
-} from "../redux/reducer";
+import { Layout, Menu, Breadcrumb, Icon, Button} from 'antd';
+const SubMenu = Menu.SubMenu;
 
-class BasicLayout extends Component{
-    constructor(props){
+const {Header, Footer, Sider, Content} = Layout;
+import connection from '../redux/connection';
+
+class BasicLayout extends Component {
+    constructor(props) {
         super(props);
-    }
-    render(){
-        console.log('this.props', this.props);
+        this.state = {
+            collapsed: false,
+        };
 
-        return(
-            <Layout>
-                <Header>
-                    <HeadBar/>
-                </Header>
+    }
+
+    handleClick = (e) => {
+        const {dispatch, actionCreate} = this.props;
+        dispatch(actionCreate('CLICK_BUTTON', '111'));
+    };
+
+    onCollapse = (collapsed) => {
+        console.log(collapsed);
+        this.setState({ collapsed });
+    }
+
+    render() {
+        console.log('this.props', this.props);
+        return (
+            <Layout style={{ minHeight: '100vh' }}>
+                <SideBar/>
                 <Layout>
-                    <Sider>
-                        <SideBar/>
-                    </Sider>
-                    <Content>Content</Content>
+                    <Header>
+                        <HeadBar/>
+                    </Header>
+                    <Content style={{ margin: '0 16px' }}>
+                        <Breadcrumb style={{ margin: '16px 0' }}>
+                            <Breadcrumb.Item>User</Breadcrumb.Item>
+                            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                        </Breadcrumb>
+                        <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+                            Bill is a cat.
+                        </div>
+                    </Content>
+                    <Footer style={{ textAlign: 'center' }}>
+                        Ant Design ©2016 Created by Ant UED
+                    </Footer>
                 </Layout>
-                <Footer>Footer</Footer>
             </Layout>
         )
     }
 }
-function mapStateToProps(state) {
-    return {
-        toDoApp: state // gives our component access to state through props.toDoApp
-    }
-}
 
-function mapDispatchToProps(dispatch) {
-    return {
-        inputChange: (value) => dispatch(inputChange(value))
-    } // here we'll soon be mapping actions to props
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(BasicLayout);
-
-// export default BasicLayout;
+export default connection(BasicLayout);
