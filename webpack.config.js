@@ -20,16 +20,7 @@ module.exports = {
         rules: [{
             test: /\.(js|jsx)$/,
             exclude: /node_modules/,
-            loader: 'babel-loader',
-            query: {
-                plugins: [['transform-runtime'],
-                    ["import", {
-                        "libraryName": "antd",
-                        "style": "css"
-                    }]
-                ],
-                presets: ['es2015', 'react', 'stage-2']
-            }
+            loader: 'babel-loader'
         }, {
             test: /\.css$/,
             loader: "style-loader!css-loader"

@@ -18,10 +18,8 @@ class Header extends Component{
 
     render() {
         return (
-            <div style={{ width: 256 }}>
-                <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
-                    <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
-                </Button>
+            <div style={{ width: 256,color: '#fff' }}>
+                header
             </div>
         );
     }

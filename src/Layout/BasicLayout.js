@@ -1,12 +1,25 @@
 import React, {Component} from 'react';
+import {
+    HashRouter as Router,
+    Route,
+    Link
+} from 'react-router-dom';
 import {default as HeadBar} from '../Components/Header/Header';
 import SideBar from '../Components/SideBar/SideBar';
+import About from '../Components/About/About';
+import Topics from '../Components/Topics/Topics';
+import ContentLayout from '../ex';
 import { Layout, Menu, Breadcrumb, Icon, Button} from 'antd';
 const SubMenu = Menu.SubMenu;
 
 const {Header, Footer, Sider, Content} = Layout;
 import connection from '../redux/connection';
 
+const Public = () => <h3>Public</h3>
+const Protected = () => <h3>Protected</h3>
+
+
+@connection
 class BasicLayout extends Component {
     constructor(props) {
         super(props);
@@ -40,9 +53,7 @@ class BasicLayout extends Component {
                             <Breadcrumb.Item>User</Breadcrumb.Item>
                             <Breadcrumb.Item>Bill</Breadcrumb.Item>
                         </Breadcrumb>
-                        <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                            Bill is a cat.
-                        </div>
+                        <ContentLayout/>
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>
                         Ant Design ©2016 Created by Ant UED
@@ -53,4 +64,5 @@ class BasicLayout extends Component {
     }
 }
 
-export default connection(BasicLayout);
+export default BasicLayout;
+// export default connection(BasicLayout);
