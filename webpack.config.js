@@ -2,13 +2,17 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 module.exports = {
-    entry: './app.js',//
+    entry: './app.js',
     output: {
         filename: "bundle.js"
     },
     devServer: {
         inline: true,
         port: 8080
+        // ,
+        // historyApiFallback:{
+        //     index:'build/index.html'
+        // },
     },
     plugins: [new HtmlWebpackPlugin({
         template: 'index.html'
@@ -25,5 +29,9 @@ module.exports = {
             test: /\.css$/,
             loader: "style-loader!css-loader"
         }]
+    },
+    node: {
+        fs: "empty",
+        net: "empty"
     }
 };

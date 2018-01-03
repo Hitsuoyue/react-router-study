@@ -19,7 +19,7 @@ const Public = () => <h3>Public</h3>
 const Protected = () => <h3>Protected</h3>
 
 
-@connection
+// @connection
 class BasicLayout extends Component {
     constructor(props) {
         super(props);

@@ -35,10 +35,8 @@ class SideBar extends Component {
                         title={<span><Icon type="user"/><span>User</span></span>}
                     >
                         <Menu.Item key="3">Tom
-                            <Link to="/home/about">About</Link>
                         </Menu.Item>
-                        <Menu.Item key="4">
-                            <Link to="/home/about">About</Link>
+                        <Menu.Item key="4">lucy
                         </Menu.Item>
                         <Menu.Item key="5">Alex</Menu.Item>
                     </SubMenu>

@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {
-    HashRouter as Router,
+    BrowserRouter as Router,
     Route,
+    IndexRoute,
     Link
 } from 'react-router-dom';
 import {Provider} from 'react-redux';
@@ -20,9 +21,14 @@ class APP extends Component{
             <Provider store={store}>
                 <Router>
                     <div>
+                        <ul>
+                            <li><Link to="/about">about</Link></li>
+                            <li><Link to="/topics">topics</Link></li>
+                        </ul>
                         <Route exact path='/' component={BasicLayout}/>
                         <Route exact path='/about' component={About}/>
                         <Route exact path='/topics' component={Topics}/>
+
                     </div>
                 </Router>
             </Provider>
