@@ -57,7 +57,43 @@ class SideBar extends Component {
         return item;
     }
 
+    clickMenuItem = (e) => {
+        const {history} = this.props.routerStore;
+        history.push(e.key);
+    }
+
+    createMenuItem = () =>{
+        let arr = sidebarConfig.SidebarArr;
+        let items = [];
+        arr.forEach(val =>{
+            items.push(this.createItem(val));
+        });
+        return items;
+    }
+
+    createItem = (val, parentPath) => {
+        let item = {};
+        if(val.hasOwnProperty('children')){
+            item = (
+                <SubMenu key={val.path}
+                         title={<span><Icon type={val.icon}/><span>{val.title}</span></span>}>
+                    {this.createItem(val.children, val.path)}
+                </SubMenu>
+            )
+        }else {
+            let path = parentPath ? `${parentPath}${val.path}` : val.path;
+            item = (
+                <Menu.Item key={parentPath ? `${parentPath}${val.path}` : val.path}>
+                    <Icon type={val.icon}/>
+                    <span>{val.title}</span>
+                </Menu.Item>
+            )
+        }
+        return item;
+    }
+
     render() {
+        console.log('sidebar props',this.props);
         return (
             <Sider
                 collapsible

@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
+import {Layout} from 'antd';
 import {
     Route,
     Switch,
     Redirect
 } from 'react-router-dom';
-import {default as HeadBar} from '../Components/Header/Header';
-import SideBar from '../Components/SideBar/SideBar';
-import {Layout} from 'antd';
 import connection from '../redux/connection';
 import sidebarConfig from '../config/SidebarConfig';
+import SideBar from '../Components/SideBar/SideBar';
+import HeadBar from '../Components/Header/Header';
 
-const {Header, Footer, Content} = Layout;
+const {Header, Content, Footer} = Layout;
 
 @connection
 class BasicLayout extends Component {
