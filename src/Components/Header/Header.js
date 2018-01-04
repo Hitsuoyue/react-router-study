@@ -10,12 +10,6 @@ class Header extends Component{
         };
     }
 
-    toggleCollapsed = (e) => {
-        // this.setState({
-        //     collapsed: !this.state.collapsed,
-        // });
-    };
-
     render() {
         return (
             <div style={{ width: 256,color: '#fff' }}>

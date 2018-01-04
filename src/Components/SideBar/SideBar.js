@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import { withRouter } from 'react-router'
 import {Layout, Menu, Breadcrumb, Icon, Button} from 'antd';
 const SubMenu = Menu.SubMenu;
 const {Sider} = Layout;
+import connection from '../../redux/connection';
+import sidebarConfig from '../../config/SidebarConfig';
+import './SideBar.scss';
 
+@withRouter
+@connection
 class SideBar extends Component {
     state = {
         collapsed: false,
@@ -11,6 +16,45 @@ class SideBar extends Component {
 
     onCollapse = (collapsed) => {
         this.setState({collapsed});
+    };
+
+    clickMenuItem = (e) => {
+        console.log('this.props', this.props);
+        const {history, location} = this.props;
+        if(location.pathname !== e.key){
+            history.push(e.key);
+        }
+    };
+
+    createMenuItem = () =>{
+        let arr = sidebarConfig.SidebarArr;
+        let items = [];
+        arr.forEach(val =>{
+            items.push(this.createItem(val));
+        });
+        return items;
+    };
+
+    createItem = (val, parentPath) => {
+        let item = {};
+        if(val.hasOwnProperty('children')){
+            let path = parentPath ? `${parentPath}${val.path}` : val.path;
+            item = (
+                <SubMenu key={path}
+                         title={<span><Icon type={val.icon}/><span>{val.title}</span></span>}>
+                    {this.createItem(val.children, path)}
+                </SubMenu>
+            )
+        }else {
+            let path = parentPath ? `${parentPath}${val.path}` : val.path;
+            item = (
+                <Menu.Item key={path}>
+                    <Icon type={val.icon}/>
+                    <span>{val.title}</span>
+                </Menu.Item>
+            )
+        }
+        return item;
     }
 
     render() {
@@ -20,37 +64,11 @@ class SideBar extends Component {
                 collapsed={this.state.collapsed}
                 onCollapse={this.onCollapse}
             >
-                <div className="logo"/>
-                <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-                    <Menu.Item key="1">
-                        <Icon type="pie-chart"/>
-                        <span>Option 1</span>
-                    </Menu.Item>
-                    <Menu.Item key="2">
-                        <Icon type="desktop"/>
-                        <span>Option 2</span>
-                    </Menu.Item>
-                    <SubMenu
-                        key="sub1"
-                        title={<span><Icon type="user"/><span>User</span></span>}
-                    >
-                        <Menu.Item key="3">Tom
-                        </Menu.Item>
-                        <Menu.Item key="4">lucy
-                        </Menu.Item>
-                        <Menu.Item key="5">Alex</Menu.Item>
-                    </SubMenu>
-                    <SubMenu
-                        key="sub2"
-                        title={<span><Icon type="team"/><span>Team</span></span>}
-                    >
-                        <Menu.Item key="6">Team 1</Menu.Item>
-                        <Menu.Item key="8">Team 2</Menu.Item>
-                    </SubMenu>
-                    <Menu.Item key="9">
-                        <Icon type="file"/>
-                        <span>File</span>
-                    </Menu.Item>
+                <div className="logo">
+                    Logo
+                </div>
+                <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" onClick={this.clickMenuItem}>
+                    {this.createMenuItem()}
                 </Menu>
             </Sider>
         );

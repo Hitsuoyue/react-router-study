@@ -1,25 +1,18 @@
 import React, {Component} from 'react';
 import {
-    HashRouter as Router,
     Route,
-    Link
+    Switch,
+    Redirect
 } from 'react-router-dom';
 import {default as HeadBar} from '../Components/Header/Header';
 import SideBar from '../Components/SideBar/SideBar';
-import About from '../Components/About/About';
-import Topics from '../Components/Topics/Topics';
-import ContentLayout from '../ex';
-import { Layout, Menu, Breadcrumb, Icon, Button} from 'antd';
-const SubMenu = Menu.SubMenu;
-
-const {Header, Footer, Sider, Content} = Layout;
+import {Layout} from 'antd';
 import connection from '../redux/connection';
+import sidebarConfig from '../config/SidebarConfig';
 
-const Public = () => <h3>Public</h3>
-const Protected = () => <h3>Protected</h3>
+const {Header, Footer, Content} = Layout;
 
-
-// @connection
+@connection
 class BasicLayout extends Component {
     constructor(props) {
         super(props);
@@ -29,34 +22,60 @@ class BasicLayout extends Component {
 
     }
 
-    handleClick = (e) => {
-        const {dispatch, actionCreate} = this.props;
-        dispatch(actionCreate('CLICK_BUTTON', '111'));
+    /**
+     * 根据 sidebar 配置产生路由
+     * @returns {Array}
+     */
+    createRoute = () => {
+        let arr = sidebarConfig.SidebarArr;
+        let items = [];
+        arr.forEach((val) => {
+            items.push(
+                <Route path={val.path} component={val.component} key={val.path}/>
+            );
+            if (val.hasOwnProperty('children')) {
+                let path = val.path.split('/')[1];
+                items.push(
+                    <Route path={`${val.path}:${path}Id`} component={val.component} key={`${val.path}:${val.path}Id`}/>
+                );
+            }
+        });
+        //产生初始页面的路由 RedirectRoute，放在 Route 最后
+        let redirectRoute = this.createRedirectRoute(arr[0].children, arr[0].path);
+        items.push(redirectRoute);
+        return items;
     };
 
-    onCollapse = (collapsed) => {
-        console.log(collapsed);
-        this.setState({ collapsed });
-    }
+    /**
+     * 产生初始页面路由
+     */
+    createRedirectRoute = (val, parentPath) => {
+        let items = [];
+        if(val.hasOwnProperty('children')){
+            items = this.createRedirectRoute(val.children, `${parentPath}${val.path}`);
+        }else{
+            items.push(
+                <Redirect exact from='/' to={`${parentPath}${val.path}`}  key={`${parentPath}${val.path}`}/>
+            )
+        }
+        return items;
+    };
 
     render() {
-        console.log('this.props', this.props);
         return (
-            <Layout style={{ minHeight: '100vh' }}>
+            <Layout style={{minHeight: '100vh'}}>
                 <SideBar/>
                 <Layout>
                     <Header>
                         <HeadBar/>
                     </Header>
-                    <Content style={{ margin: '0 16px' }}>
-                        <Breadcrumb style={{ margin: '16px 0' }}>
-                            <Breadcrumb.Item>User</Breadcrumb.Item>
-                            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                        </Breadcrumb>
-                        <ContentLayout/>
+                    <Content style={{margin: '0 16px'}}>
+                        <Switch>
+                            {this.createRoute()}
+                        </Switch>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>
-                        Ant Design ©2016 Created by Ant UED
+                    <Footer style={{textAlign: 'center'}}>
+                        Created by sylvia
                     </Footer>
                 </Layout>
             </Layout>
@@ -65,4 +84,3 @@ class BasicLayout extends Component {
 }
 
 export default BasicLayout;
-// export default connection(BasicLayout);
