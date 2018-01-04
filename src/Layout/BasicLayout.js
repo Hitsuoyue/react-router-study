@@ -8,7 +8,6 @@ import {default as HeadBar} from '../Components/Header/Header';
 import SideBar from '../Components/SideBar/SideBar';
 import About from '../Components/About/About';
 import Topics from '../Components/Topics/Topics';
-import ContentLayout from '../ex';
 import { Layout, Menu, Breadcrumb, Icon, Button} from 'antd';
 const SubMenu = Menu.SubMenu;
 
@@ -53,7 +52,6 @@ class BasicLayout extends Component {
                             <Breadcrumb.Item>User</Breadcrumb.Item>
                             <Breadcrumb.Item>Bill</Breadcrumb.Item>
                         </Breadcrumb>
-                        <ContentLayout/>
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>
                         Ant Design ©2016 Created by Ant UED

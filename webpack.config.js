@@ -9,10 +9,6 @@ module.exports = {
     devServer: {
         inline: true,
         port: 8080
-        // ,
-        // historyApiFallback:{
-        //     index:'build/index.html'
-        // },
     },
     plugins: [new HtmlWebpackPlugin({
         template: 'index.html'
