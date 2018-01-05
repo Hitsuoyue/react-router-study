@@ -10,20 +10,20 @@ export default class HomePage extends Component{
         super(props);
     }
 
+    //todo: model || 获取
     createNewProject = (e) => {
-        console.log()
         const {history, location} = this.props;
         if(location.pathname.split('/')[location.pathname.split('/').length-1] !== 'create'){
-            history.push('create');
+            history.push(`${location.pathname.split('/')[location.pathname.split('/').length-1]}/create`);
         }
     };
 
     componentWillReceiveProps(nextProps){
-        console.log('nextProps', nextProps);
+        // console.log('nextProps', nextProps);
     }
 
     render(){
-        console.log('this.props', this.props);
+        // console.log('this.props', this.props);
         return(
             <div>
                 <h3>Homepage</h3>

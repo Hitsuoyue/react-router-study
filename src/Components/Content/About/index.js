@@ -27,7 +27,7 @@ export default class About extends Component{
     };
 
     componentWillReceiveProps(nextProps){
-        console.log('Index========nextProps', nextProps);
+        // console.log('Index========nextProps', nextProps);
     }
 
     render(){

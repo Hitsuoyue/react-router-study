@@ -41,7 +41,7 @@ class BasicLayout extends Component {
             }
         });
         //产生初始页面的路由 RedirectRoute，放在 Route 最后
-        let redirectRoute = this.createRedirectRoute(arr[0].children, arr[0].path);
+        let redirectRoute = this.createRedirectRoute(arr[0]);
         items.push(redirectRoute);
         return items;
     };
@@ -51,11 +51,12 @@ class BasicLayout extends Component {
      */
     createRedirectRoute = (val, parentPath) => {
         let items = [];
+        let path = parentPath ? `${parentPath}${val.path}` : val.path;
         if(val.hasOwnProperty('children')){
-            items = this.createRedirectRoute(val.children, `${parentPath}${val.path}`);
+            items = this.createRedirectRoute(val.children[0], path);
         }else{
             items.push(
-                <Redirect exact from='/' to={`${parentPath}${val.path}`}  key={`${parentPath}${val.path}`}/>
+                <Redirect exact from='/' to={path}  key={path}/>
             )
         }
         return items;

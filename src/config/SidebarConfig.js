@@ -6,17 +6,26 @@ import About from '../Components/Content/About/index';
 import topics from '../Components/Content/Topics/Topics';
 import Test from '../Components/Content/Test/Test';
 const sidebarConfig = {
-    SidebarArr : [
+    SidebarArr: [
         {
-            path: '/about',
+            path: '/projectManage',
             icon: 'pie-chart',
-            title: 'about',
+            title: 'projectManage',
             component: About,
-            children:{
-                path: '/about1',
+            children: [{
+                path: '/personal',
                 icon: 'desktop',
-                title: 'about1'
-            }
+                title: 'personal'
+            }, {
+                path: '/about2',
+                icon: 'desktop',
+                title: 'about2',
+                children: [{
+                    path: '/about22',
+                    icon: 'desktop',
+                    title: 'about22'
+                }]
+            }]
         },
         {
             path: '/topics',
@@ -29,16 +38,16 @@ const sidebarConfig = {
             icon: 'user',
             title: 'test',
             component: Test,
-            children:{
+            children: [{
                 path: '/test1',
                 icon: 'desktop',
                 title: 'test1',
-                children:{
+                children: [{
                     path: '/test2',
                     icon: 'desktop',
                     title: 'test2'
-                }
-            }
+                }]
+            }]
         }
     ]
 };
