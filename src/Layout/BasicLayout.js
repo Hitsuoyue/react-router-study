@@ -7,8 +7,8 @@ import {
 } from 'react-router-dom';
 import connection from '../redux/connection';
 import sidebarConfig from '../config/SidebarConfig';
-import SideBar from '../Components/SideBar/SideBar';
-import HeadBar from '../Components/Header/Header';
+import SideBar from '../BasicComponents/SideBar/SideBar';
+import HeadBar from '../BasicComponents/Header/Header';
 
 const {Header, Content, Footer} = Layout;
 
@@ -41,7 +41,8 @@ class BasicLayout extends Component {
             }
         });
         //产生初始页面的路由 RedirectRoute，放在 Route 最后
-        let redirectRoute = this.createRedirectRoute(arr[0]);
+        // let redirectRoute = this.createRedirectRoute(arr[0]);
+        let redirectRoute = <Redirect exact from='/' to='login'/>;
         items.push(redirectRoute);
         return items;
     };

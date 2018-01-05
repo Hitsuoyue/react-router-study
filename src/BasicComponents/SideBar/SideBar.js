@@ -23,10 +23,6 @@ class SideBar extends Component {
         this.menuItems = [];
     }
 
-
-    // initSideMenu = () => {
-    //     this.menuItems = this.createMenuItem();
-    // }
     /**
      * 初始化侧边菜单栏
      */
@@ -94,8 +90,6 @@ class SideBar extends Component {
         console.log('defaultOpenKeys',this.defaultOpenKeys);
     }
 
-
-
     componentWillMount(){
         this.initSideMenu();
         this.initSelectedMenu(this.props);
@@ -118,9 +112,6 @@ class SideBar extends Component {
             history.push(e.key);
         }
     };
-
-
-
 
     render() {
         return (

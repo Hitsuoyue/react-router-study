@@ -2,9 +2,9 @@
  * Created by sylvia on 2018/1/4.
  */
 import React from 'react';
-import About from '../Components/Content/About/index';
-import topics from '../Components/Content/Topics/Topics';
-import Test from '../Components/Content/Test/Test';
+import About from '../BasicComponents/Content/ProjectManage/index';
+import topics from '../BasicComponents/Content/Topics/Topics';
+import Test from '../BasicComponents/Content/Test/Test';
 const sidebarConfig = {
     SidebarArr: [
         {
@@ -28,10 +28,29 @@ const sidebarConfig = {
             }]
         },
         {
-            path: '/topics',
+            path: '/userManage',
             icon: 'desktop',
-            title: 'topics',
+            title: 'userManage',
             component: topics
+        },
+        {
+            path: '/account',
+            icon: 'user',
+            title: 'account',
+            component: About,
+            children: [{
+                path: '/signIn',
+                icon: 'desktop',
+                title: 'signIn'
+            }, {
+                path: '/signUp',
+                icon: 'desktop',
+                title: 'signUp'
+            }, {
+                path: '/signSuccess',
+                icon: 'desktop',
+                title: 'signSuccess'
+            }]
         },
         {
             path: '/test',
