@@ -1,0 +1,33 @@
+.ant-layout{
+  height: 100%;
+  .ant-layout-content{
+    height: 100%;
+    .login-form , .register-form, .success-form{
+      width: 500px;
+      height: 400px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+    }
+    .login-form{
+      max-width: 300px;
+    }
+    .login-form-forgot {
+      float: right;
+    }
+    .login-form-button {
+      width: 100%;
+    }
+    .register-btn{
+      background: none;
+      border: none;
+      color: #40a9ff;
+    }
+    .success-form{
+      text-align: center;
+    }
+  }
+}

@@ -34,20 +34,20 @@ const sidebarConfig = {
             component: topics
         },
         {
-            path: '/account',
+            path: '/login',
             icon: 'user',
             title: 'account',
             component: About,
             children: [{
-                path: '/signIn',
+                path: '',
                 icon: 'desktop',
                 title: 'signIn'
             }, {
-                path: '/signUp',
+                path: '/register',
                 icon: 'desktop',
                 title: 'signUp'
             }, {
-                path: '/signSuccess',
+                path: '/success',
                 icon: 'desktop',
                 title: 'signSuccess'
             }]

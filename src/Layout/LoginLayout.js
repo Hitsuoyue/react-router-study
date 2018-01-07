@@ -6,6 +6,9 @@ import {
     Redirect
 } from 'react-router-dom';
 import connection from '../redux/connection';
+import SignUpForm from '../LoginComponents/SignUpForm';
+import SignInForm from '../LoginComponents/SignInForm';
+import Success from '../LoginComponents/Success';
 
 const {Header, Content, Footer} = Layout;
 
@@ -15,13 +18,45 @@ class LoginLayout extends Component {
         super(props);
         this.state = {
         };
+        this.model = 'login';
 
     }
 
+    /**
+     *     通过地址，判断当前要渲染的组件
+     */
+    getCurrentForm = () => {
+        const {pathname} = this.props.location;
+        if(pathname){
+            let pathArray = pathname.split('/');
+            let path = pathArray[pathArray.length-1];
+            console.log(path);
+            switch (path){
+                case 'register':
+                    return SignInForm;
+                    break;
+                case 'success':
+                    return Success;
+                    break;
+                case 'login':
+                    return SignUpForm;
+                    break;
+                default:
+                    return SignUpForm;
+                    break;
+            }
+        }
+    };
 
     render() {
+        let CurrentForm = this.getCurrentForm();
         return (
             <Layout>
+                <Content>
+                    <Switch>
+                        <CurrentForm model={this.model}/>
+                    </Switch>
+                </Content>
                 <Footer style={{textAlign: 'center',width:'100%', position: 'absolute',bottom: 0}}>
                     Created by sylvia
                 </Footer>

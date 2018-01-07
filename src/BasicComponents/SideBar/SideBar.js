@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {withRouter} from 'react-router'
+import {withRouter} from 'react-router';
 import {Layout, Menu, Breadcrumb, Icon, Button} from 'antd';
 const SubMenu = Menu.SubMenu;
 const {Sider} = Layout;
@@ -10,7 +10,6 @@ import './SideBar.scss';
 @withRouter
 @connection
 class SideBar extends Component {
-
     constructor(props){
         super(props);
         this.state = {
@@ -76,7 +75,6 @@ class SideBar extends Component {
         this.defaultSelectedKeys.push(path);
         let defaultOpenKeys = [];
         let pathArr = path.split('/');
-        console.log('this.itemMenuKeys', pathArr, this.itemMenuKeys);
         pathArr.forEach((item,index) => {
             if(index === 0){
                 return;
@@ -87,7 +85,6 @@ class SideBar extends Component {
             }
             this.defaultOpenKeys.push(`${this.defaultOpenKeys[this.defaultOpenKeys.length-1] ||''}/${item}`);
         });
-        console.log('defaultOpenKeys',this.defaultOpenKeys);
     }
 
     componentWillMount(){

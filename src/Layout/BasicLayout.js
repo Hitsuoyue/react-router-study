@@ -41,9 +41,10 @@ class BasicLayout extends Component {
             }
         });
         //产生初始页面的路由 RedirectRoute，放在 Route 最后
-        // let redirectRoute = this.createRedirectRoute(arr[0]);
-        let redirectRoute = <Redirect exact from='/' to='login'/>;
+        let redirectRoute = this.createRedirectRoute(arr[0]);
+        // let redirectRoute = <Redirect exact from='/' to='login' key='routeRedirectRoute'/>;
         items.push(redirectRoute);
+
         return items;
     };
 
@@ -64,6 +65,7 @@ class BasicLayout extends Component {
     };
 
     render() {
+        console.log('basicLayout');
         return (
             <Layout style={{minHeight: '100vh'}}>
                 <SideBar/>
