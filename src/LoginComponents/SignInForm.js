@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router';
-import { Alert, Form, Input, message, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Form, Input, message, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 import './SignUpForm.scss';
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -39,17 +39,14 @@ class SignInForm extends Component {
         this.model = this.props.model || 'login';
         this.state = {
             confirmDirty: false,
-            autoCompleteResult: [],
-            successAlert: null
+            autoCompleteResult: []
         };
-        // this.successAlert = null;
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
                 message.success('注册成功，稍后将跳转到个人首页');
                 setTimeout(this.goToProject, 1000);
             }

@@ -30,7 +30,6 @@ class LoginLayout extends Component {
         if(pathname){
             let pathArray = pathname.split('/');
             let path = pathArray[pathArray.length-1];
-            console.log(path);
             switch (path){
                 case 'register':
                     return SignInForm;

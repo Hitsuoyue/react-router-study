@@ -4,7 +4,7 @@ import HomePage from './HomePage/HomePage';
 import CreateProject from './CreateProject/CreateProject';
 
 @connection
-export default class About extends Component{
+export default class ProjectManage extends Component{
     constructor(props){
         super(props);
     }

@@ -103,7 +103,7 @@ class SideBar extends Component {
     };
 
     clickMenuItem = (e) => {
-        console.log('this.props', this.props);
+
         const {history, location} = this.props;
         if (location.pathname !== e.key) {
             history.push(e.key);

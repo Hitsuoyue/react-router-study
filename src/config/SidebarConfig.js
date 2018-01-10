@@ -2,16 +2,16 @@
  * Created by sylvia on 2018/1/4.
  */
 import React from 'react';
-import About from '../BasicComponents/Content/ProjectManage/index';
-import topics from '../BasicComponents/Content/Topics/Topics';
-import Test from '../BasicComponents/Content/Test/Test';
+import ProjectManage from '../BasicComponents/Content/ProjectManage/index';
+import UserManage from '../BasicComponents/Content/UserManage/index';
+import LoginLayout from '../Layout/LoginLayout';
 const sidebarConfig = {
     SidebarArr: [
         {
             path: '/projectManage',
             icon: 'pie-chart',
             title: 'projectManage',
-            component: About,
+            component: ProjectManage,
             children: [{
                 path: '/personal',
                 icon: 'desktop',
@@ -31,13 +31,13 @@ const sidebarConfig = {
             path: '/userManage',
             icon: 'desktop',
             title: 'userManage',
-            component: topics
+            component: UserManage
         },
         {
             path: '/login',
             icon: 'user',
             title: 'account',
-            component: About,
+            component: LoginLayout,
             children: [{
                 path: '',
                 icon: 'desktop',
@@ -50,22 +50,6 @@ const sidebarConfig = {
                 path: '/success',
                 icon: 'desktop',
                 title: 'signSuccess'
-            }]
-        },
-        {
-            path: '/test',
-            icon: 'user',
-            title: 'test',
-            component: Test,
-            children: [{
-                path: '/test1',
-                icon: 'desktop',
-                title: 'test1',
-                children: [{
-                    path: '/test2',
-                    icon: 'desktop',
-                    title: 'test2'
-                }]
             }]
         }
     ]

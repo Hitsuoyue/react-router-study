@@ -44,7 +44,6 @@ class BasicLayout extends Component {
         let redirectRoute = this.createRedirectRoute(arr[0]);
         // let redirectRoute = <Redirect exact from='/' to='login' key='routeRedirectRoute'/>;
         items.push(redirectRoute);
-
         return items;
     };
 
@@ -65,7 +64,6 @@ class BasicLayout extends Component {
     };
 
     render() {
-        console.log('basicLayout');
         return (
             <Layout style={{minHeight: '100vh'}}>
                 <SideBar/>
