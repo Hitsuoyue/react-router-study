@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const proxy = require('http-proxy-middleware');
 module.exports = {
     entry: './app.js',
     output: {
@@ -8,7 +9,16 @@ module.exports = {
     },
     devServer: {
         inline: true,
-        port: 8080
+        port: 8080,
+        proxy:{
+            '/v2':{
+                target: 'http://api.douban.com',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/v2': '/v2'
+                }
+            }
+        }
     },
     plugins: [new HtmlWebpackPlugin({
         template: 'index.html'

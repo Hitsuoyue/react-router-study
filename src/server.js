@@ -2,10 +2,10 @@ import $ from 'jquery';
 const servers = {
     signUp: () => {
         $.ajax({
-            url: 'http://localhost:3200/login',
+            url: '/v2/movie/in_theaters',
             type: 'get',
             data: '',
-            dataType:'jsonP',
+            dataType:'json',
             success: function (data) {
                 console.log('success-data', data);
             },
