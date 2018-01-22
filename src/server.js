@@ -2,15 +2,43 @@ import $ from 'jquery';
 const servers = {
     signUp: () => {
         $.ajax({
-            url: '/v2/movie/in_theaters',
+            url: '/login/signup',
             type: 'get',
             data: '',
-            dataType:'json',
-            success: function (data) {
-                console.log('success-data', data);
+            datatype: 'json',
+            success:function (data) {
+                console.log('success', data);
             },
-            error: function (data) {
-                console.log('error-data', data);
+            error:function (data) {
+                console.log('error', data);
+            }
+        })
+    },
+    signIn: () => {
+        $.ajax({
+            url: '/index',
+            type: 'get',
+            data: '',
+            datatype: 'json',
+            success:function (data) {
+                console.log('success', data);
+            },
+            error:function (data) {
+                console.log('error', data);
+            }
+        })
+    },
+    Login: ()=>{
+        $.ajax({
+            url: '/login',
+            type: 'get',
+            data: '',
+            datatype: 'json',
+            success:function (data) {
+                console.log('success', data);
+            },
+            error:function (data) {
+                console.log('error', data);
             }
         })
     }

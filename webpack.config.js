@@ -11,12 +11,9 @@ module.exports = {
         inline: true,
         port: 8080,
         proxy:{
-            '/v2':{
-                target: 'http://api.douban.com',
-                changeOrigin: true,
-                pathRewrite: {
-                    '^/v2': '/v2'
-                }
+            '/':{
+                target: 'http://127.0.0.1:3200',
+                changeOrigin: true
             }
         }
     },
