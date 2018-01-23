@@ -1,8 +1,36 @@
 import React, {Component} from 'react';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import {withRouter} from 'react-router';
-import './SignUpForm.scss';
+import { Form, Input, message, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import './SignInForm.scss';
+import servers from '../server';
 const FormItem = Form.Item;
+const Option = Select.Option;
+const AutoCompleteOption = AutoComplete.Option;
+
+const
+    residences = [{
+        value: 'zhejiang',
+        label: 'Zhejiang',
+        children: [{
+            value: 'hangzhou',
+            label: 'Hangzhou',
+            children: [{
+                value: 'xihu',
+                label: 'West Lake',
+            }],
+        }],
+    }, {
+        value: 'jiangsu',
+        label: 'Jiangsu',
+        children: [{
+            value: 'nanjing',
+            label: 'Nanjing',
+            children: [{
+                value: 'zhonghuamen',
+                label: 'Zhong Hua Men',
+            }],
+        }],
+    }];
 
 @withRouter
 @Form.create()
@@ -10,68 +38,162 @@ class SignUpForm extends Component {
     constructor(props){
         super(props);
         this.model = this.props.model || 'login';
+        this.state = {
+            confirmDirty: false,
+            autoCompleteResult: []
+        };
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                servers.signUp();
+                message.success('注册成功，稍后将跳转到个人首页');
+                setTimeout(this.goToProject, 1000);
+            }
+        });
     }
 
     /**
-     * 点击提交触发
-     * @param e
+     * 跳转到项目管理页面
      */
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
-                console.log('this.props', this.props, e);
-                const {history, location} = this.props;
-                if (location.pathname !== e.key) {
-                    history.push('success');
-                }
-            }
-        });
+    goToProject = () => {
+        const {history, location} = this.props;
+        history.push('/projectManage/personal');
     };
 
-    /**
-     * 跳转到注册页面
-     * @returns {XML}
-     */
-    handleRegister = () => {
-        const {history, location} = this.props;
-        history.push(`/${this.model}/register`);
-    };
+    handleConfirmBlur = (e) => {
+        const value = e.target.value;
+        this.setState({confirmDirty: this.state.confirmDirty || !!value});
+    }
+    checkPassword = (rule, value, callback) => {
+        const form = this.props.form;
+        if (value && value !== form.getFieldValue('password')) {
+            callback('Two passwords that you enter is inconsistent!');
+        } else {
+            callback();
+        }
+    }
+    checkConfirm = (rule, value, callback) => {
+        const form = this.props.form;
+        if (value && this.state.confirmDirty) {
+            form.validateFields(['confirm'], {force: true});
+        }
+        callback();
+    }
+
+    handleWebsiteChange = (value) => {
+        let autoCompleteResult;
+        if (!value) {
+            autoCompleteResult = [];
+        } else {
+            autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
+        }
+        this.setState({autoCompleteResult});
+    }
 
     render() {
-        const { getFieldDecorator } = this.props.form;
+        const {getFieldDecorator} = this.props.form;
+        const {autoCompleteResult} = this.state;
+
+        const formItemLayout = {
+            labelCol: {
+                xs: {span: 24},
+                sm: {span: 8},
+            },
+            wrapperCol: {
+                xs: {span: 24},
+                sm: {span: 16},
+            },
+        };
+        const tailFormItemLayout = {
+            wrapperCol: {
+                xs: {
+                    span: 24,
+                    offset: 0,
+                },
+                sm: {
+                    span: 16,
+                    offset: 8,
+                },
+            },
+        };
+
+        const websiteOptions = autoCompleteResult.map(website => (
+            <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
+        ));
+
         return (
-            <Form onSubmit={this.handleSubmit} className="login-form">
-                <FormItem>
-                    {getFieldDecorator('userName', {
-                        rules: [{ required: true, message: 'Please input your username!' }],
+            <Form className='register-form'
+                onSubmit={this.handleSubmit}>
+                <FormItem
+                    {...formItemLayout}
+                    label="E-mail"
+                >
+                    {getFieldDecorator('email', {
+                        rules: [{
+                            type: 'email', message: 'The input is not valid E-mail!',
+                        }, {
+                            required: true, message: 'Please input your E-mail!',
+                        }],
                     })(
-                        <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+                        <Input/>
                     )}
                 </FormItem>
-                <FormItem>
+                <FormItem
+                    {...formItemLayout}
+                    label="Password"
+                >
                     {getFieldDecorator('password', {
-                        rules: [{ required: true, message: 'Please input your Password!' }],
+                        rules: [{
+                            required: true, message: 'Please input your password!',
+                        }, {
+                            validator: this.checkConfirm,
+                        }],
                     })(
-                        <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+                        <Input type="password"/>
                     )}
                 </FormItem>
-                <FormItem>
-                    {getFieldDecorator('remember', {
-                        valuePropName: 'checked',
-                        initialValue: true,
+                <FormItem
+                    {...formItemLayout}
+                    label="Confirm Password"
+                >
+                    {getFieldDecorator('confirm', {
+                        rules: [{
+                            required: true, message: 'Please confirm your password!',
+                        }, {
+                            validator: this.checkPassword,
+                        }],
                     })(
-                        <Checkbox>Remember me</Checkbox>
+                        <Input type="password" onBlur={this.handleConfirmBlur}/>
                     )}
-                    <a className="login-form-forgot" href="">Forgot password</a>
-                    <Button type="primary" htmlType="submit" className="login-form-button">
-                        Log in
-                    </Button>
-                    Or
-                    <Button className='register-btn'
-                        onClick={this.handleRegister}>
-                        register now!
-                    </Button>
+                </FormItem>
+                <FormItem
+                    {...formItemLayout}
+                    label={(
+                        <span>
+              Nickname&nbsp;
+                            <Tooltip title="What do you want others to call you?">
+                <Icon type="question-circle-o"/>
+              </Tooltip>
+            </span>
+                    )}
+                >
+                    {getFieldDecorator('username')(
+                        <Input/>
+                    )}
+                </FormItem>
+                <FormItem
+                    {...formItemLayout}
+                    label="Phone Number"
+                >
+                    {getFieldDecorator('phone')(
+                        <Input style={{width: '100%'}}/>
+                    )}
+                </FormItem>
+                <FormItem {...tailFormItemLayout}>
+                    <Button type="primary" htmlType="submit">Register</Button>
                 </FormItem>
             </Form>
         );

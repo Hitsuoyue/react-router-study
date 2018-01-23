@@ -6,8 +6,8 @@ import {
     Redirect
 } from 'react-router-dom';
 import connection from '../redux/connection';
-import SignUpForm from '../LoginComponents/SignUpForm';
-import SignInForm from '../LoginComponents/SignInForm';
+import SignUpForm from '../LoginComponents/SignInForm';
+import SignInForm from '../LoginComponents/SignUpForm';
 import Success from '../LoginComponents/Success';
 
 const {Header, Content, Footer} = Layout;
